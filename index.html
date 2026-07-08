@@ -1,5 +1,51 @@
 <!DOCTYPE html>
 <html><head>
+<style id="kwg-mobile-nav">
+/* Base: wrapper is transparent to layout so desktop/tablet are unchanged */
+.kwg-navwrap{ display: contents; }
+.kwg-burger{ display: none; }
+
+@media (max-width: 767px){
+  .kwg-header{ padding: 10px 18px !important; gap: 12px !important; }
+  .kwg-brand{ gap: 9px !important; }
+  .kwg-brand img{ height: 48px !important; }
+  .kwg-brand > div{ font-size: 9.5px !important; letter-spacing: .22em !important; line-height: 1.45 !important; }
+
+  /* Hamburger, right-aligned */
+  .kwg-burger{
+    display: inline-flex !important; flex-direction: column; align-items: center; justify-content: center;
+    gap: 5px; width: 44px; height: 44px; padding: 0; flex: none; cursor: pointer;
+    border: 1px solid rgba(250,198,19,.38); border-radius: 12px; background: rgba(250,198,19,.09);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .kwg-burger span{ display: block; width: 20px; height: 2px; border-radius: 2px; background: #FAC613;
+    transition: transform .28s ease, opacity .2s ease; }
+  .kwg-header[data-menu="open"] .kwg-burger span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+  .kwg-header[data-menu="open"] .kwg-burger span:nth-child(2){ opacity: 0; }
+  .kwg-header[data-menu="open"] .kwg-burger span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+  /* Overlay panel: absolute -> overlays page, does not push content */
+  .kwg-navwrap{
+    display: flex !important; flex-direction: column; align-items: stretch; gap: 4px;
+    position: absolute; top: 100%; left: 0; right: 0;
+    padding: 8px 16px 18px;
+    background: rgba(20,7,45,.98); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(250,198,19,.22); box-shadow: 0 24px 46px rgba(0,0,0,.5);
+    transform: translateY(-10px); opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity .26s ease, transform .26s ease, visibility .26s;
+  }
+  .kwg-header[data-menu="open"] .kwg-navwrap{ opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
+
+  .kwg-navwrap nav{ display: flex !important; flex-direction: column !important; align-items: stretch !important;
+    gap: 0 !important; flex-wrap: nowrap !important; justify-content: flex-start !important; width: 100%; }
+  .kwg-navwrap nav a{ font-size: 15px !important; font-weight: 600 !important; padding: 14px 4px !important;
+    border-bottom: 1px solid rgba(250,198,19,.10) !important; border-radius: 0 !important; letter-spacing: .04em !important; }
+
+  .kwg-navwrap > a{ text-align: center; margin-top: 14px !important; padding: 15px 22px !important;
+    font-size: 15px !important; box-shadow: 0 10px 26px rgba(250,198,19,.34) !important; }
+}
+</style>
+
 <script>window.__resources={"https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/js/react.production.min.js", "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/js/react-dom.production.min.js"};</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -331,11 +377,12 @@
 </div>
 
 <!-- ===== HEADER ===== -->
-<header style="position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:13px clamp(16px,4vw,52px);background:rgba(20,7,45,.74);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(250,198,19,.2);">
-  <div onclick="{{ goHome }}" style="display:flex;align-items:center;gap:14px;cursor:pointer;flex:none;">
+<header class="kwg-header" data-menu="{{ menuState }}" style="position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:13px clamp(16px,4vw,52px);background:rgba(20,7,45,.74);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(250,198,19,.2);">
+  <div onclick="{{ goHome }}" class="kwg-brand" style="display:flex;align-items:center;gap:14px;cursor:pointer;flex:none;">
     <img src="assets/img/logo.png" alt="Kulche Wali Gali" style="height:54px;width:auto;flex:none;filter:drop-shadow(0 3px 8px rgba(0,0,0,.4));">
     <div style="font-family:'Manrope';font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:#FFD75E;white-space:nowrap;line-height:1.5;">Punjabi Street Food<br>Ahmedabad</div>
   </div>
+  <div class="kwg-navwrap">
   <nav style="display:flex;align-items:center;gap:clamp(12px,1.8vw,28px);flex-wrap:wrap;justify-content:center;">
     <a onclick="{{ goHome }}" style="cursor:pointer;font-size:13px;font-weight:600;letter-spacing:.03em;color:#E8DFC9;text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;{{ homeAct }}">Home</a>
     <a onclick="{{ goMenu }}" style="cursor:pointer;font-size:13px;font-weight:600;letter-spacing:.03em;color:#E8DFC9;text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;{{ menuAct }}">Menu</a>
@@ -343,7 +390,9 @@
     <a onclick="{{ goAbout }}" style="cursor:pointer;font-size:13px;font-weight:600;letter-spacing:.03em;color:#E8DFC9;text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;{{ aboutAct }}">Our Story</a>
     <a onclick="{{ goContact }}" style="cursor:pointer;font-size:13px;font-weight:600;letter-spacing:.03em;color:#E8DFC9;text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;{{ contactAct }}">Contact</a>
   </nav>
-  <a href="https://wa.me/91635688833" target="_blank" style="flex:none;background:#FAC613;color:#1D093A;padding:12px 22px;border-radius:999px;font-weight:700;font-size:13px;letter-spacing:.02em;text-decoration:none;white-space:nowrap;box-shadow:0 8px 24px rgba(250,198,19,.3);">Order on WhatsApp</a>
+  <a href="https://wa.me/916356888833" target="_blank" style="flex:none;background:#FAC613;color:#1D093A;padding:12px 22px;border-radius:999px;font-weight:700;font-size:13px;letter-spacing:.02em;text-decoration:none;white-space:nowrap;box-shadow:0 8px 24px rgba(250,198,19,.3);">Order on WhatsApp</a>
+  </div>
+  <button onclick="{{ toggleMenu }}" class="kwg-burger" aria-label="Toggle menu" aria-expanded="{{ menuState }}"><span></span><span></span><span></span></button>
 </header>
 
 <!-- ============ HOME ============ -->
@@ -650,7 +699,7 @@
             </div>
             <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex:none;">
               <span style="font-family:'Marcellus',serif;font-size:22px;color:#5D2C8E;">₹{{ it.price }}</span>
-              <a href="https://wa.me/91635688833" target="_blank" style="background:#FAC613;color:#1D093A;padding:8px 16px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap;">Order</a>
+              <a href="https://wa.me/916356888833" target="_blank" style="background:#FAC613;color:#1D093A;padding:8px 16px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap;">Order</a>
             </div>
           </div>
         </sc-for>
@@ -660,7 +709,7 @@
         <h3 style="font-family:'Marcellus',serif;font-size:26px;color:#2E0F52;margin:0 0 10px;">Hungry already?</h3>
         <p style="font-size:15px;color:rgba(42,33,28,.6);margin:0 0 24px;">Order on WhatsApp or drop by — we're firing the tandoor right now.</p>
         <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-          <a href="https://wa.me/91635688833" target="_blank" style="background:#25D366;color:#fff;padding:15px 30px;border-radius:999px;font-weight:700;font-size:14px;">WhatsApp Order</a>
+          <a href="https://wa.me/916356888833" target="_blank" style="background:#25D366;color:#fff;padding:15px 30px;border-radius:999px;font-weight:700;font-size:14px;">WhatsApp Order</a>
           <a onclick="{{ goContact }}" style="cursor:pointer;background:#5D2C8E;color:#F6EFE0;padding:15px 30px;border-radius:999px;font-weight:700;font-size:14px;">Visit Us</a>
         </div>
       </div>
@@ -681,7 +730,7 @@
         <p style="font-size:17px;line-height:1.65;color:rgba(246,239,224,.82);margin:0 0 34px;">Own a slice of one of India's fastest-growing street-food brands. Proven kitchen, loyal fans, full support — you bring the passion.</p>
         <div style="display:flex;gap:14px;flex-wrap:wrap;">
           <a href="#franchise-form" style="background:#FAC613;color:#1D093A;padding:16px 32px;border-radius:999px;font-weight:700;font-size:15px;">Enquire Now</a>
-          <a href="https://wa.me/91635688833" target="_blank" style="border:1.5px solid rgba(246,239,224,.45);color:#F6EFE0;padding:16px 30px;border-radius:999px;font-weight:600;font-size:15px;">WhatsApp Us</a>
+          <a href="https://wa.me/916356888833" target="_blank" style="border:1.5px solid rgba(246,239,224,.45);color:#F6EFE0;padding:16px 30px;border-radius:999px;font-weight:600;font-size:15px;">WhatsApp Us</a>
         </div>
       </div>
     </div>
@@ -750,9 +799,9 @@
         <textarea placeholder="Tell us about yourself" rows="3" style="padding:15px 18px;border:1.5px solid rgba(45,15,82,.16);border-radius:12px;font-size:14px;font-family:'Manrope';outline:none;resize:vertical;"></textarea>
         <button style="background:#5D2C8E;color:#F6EFE0;padding:17px;border:none;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;font-family:'Manrope';">Submit Enquiry</button>
         <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:6px;">
-          <a href="https://wa.me/91635688833" target="_blank" style="font-size:13px;font-weight:700;color:#25D366;">WhatsApp</a>
+          <a href="https://wa.me/916356888833" target="_blank" style="font-size:13px;font-weight:700;color:#25D366;">WhatsApp</a>
           <span style="color:rgba(42,33,28,.3);">·</span>
-          <a href="tel:+91635688833" style="font-size:13px;font-weight:700;color:#5D2C8E;">Call Now</a>
+          <a href="tel:+916356888833" style="font-size:13px;font-weight:700;color:#5D2C8E;">Call Now</a>
           <span style="color:rgba(42,33,28,.3);">·</span>
           <a href="#" style="font-size:13px;font-weight:700;color:#FAC613;">Download Brochure</a>
         </div>
@@ -832,8 +881,8 @@
           </div>
         </div>
         <div style="display:flex;gap:12px;flex-wrap:wrap;">
-          <a href="https://wa.me/91635688833" target="_blank" style="flex:1;min-width:140px;text-align:center;background:#25D366;color:#fff;padding:16px;border-radius:14px;font-weight:700;font-size:14px;">WhatsApp</a>
-          <a href="tel:+91635688833" style="flex:1;min-width:140px;text-align:center;background:#5D2C8E;color:#F6EFE0;padding:16px;border-radius:14px;font-weight:700;font-size:14px;">Call Now</a>
+          <a href="https://wa.me/916356888833" target="_blank" style="flex:1;min-width:140px;text-align:center;background:#25D366;color:#fff;padding:16px;border-radius:14px;font-weight:700;font-size:14px;">WhatsApp</a>
+          <a href="tel:+916356888833" style="flex:1;min-width:140px;text-align:center;background:#5D2C8E;color:#F6EFE0;padding:16px;border-radius:14px;font-weight:700;font-size:14px;">Call Now</a>
         </div>
         <a href="https://maps.google.com" target="_blank" style="text-align:center;border:1.5px solid #FAC613;color:#5D2C8E;padding:16px;border-radius:14px;font-weight:700;font-size:14px;">Get Directions →</a>
       </div>
@@ -876,8 +925,8 @@
     <div>
       <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#FAC613;margin-bottom:16px;">Reach Us</div>
       <div style="display:flex;flex-direction:column;gap:11px;font-size:14px;">
-        <a href="https://wa.me/91635688833" target="_blank" style="color:rgba(246,239,224,.7);">WhatsApp: +91 635688833</a>
-        <a href="tel:+91635688833" style="color:rgba(246,239,224,.7);">Call: +91 635688833</a>
+        <a href="https://wa.me/916356888833" target="_blank" style="color:rgba(246,239,224,.7);">WhatsApp: +91 6356888833</a>
+        <a href="tel:+916356888833" style="color:rgba(246,239,224,.7);">Call: +91 6356888833</a>
         <span style="color:rgba(246,239,224,.5);">Ahmedabad, Gujarat</span>
         <span style="color:rgba(246,239,224,.5);">7:30 PM – 12 AM · Daily</span>
       </div>
@@ -887,14 +936,14 @@
 </footer>
 
 <!-- ===== FLOATING CTAs ===== -->
-<a href="https://wa.me/91635688833" target="_blank" style="position:fixed;right:20px;bottom:22px;z-index:90;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,.45);animation:kwg-pulse 2.4s infinite;color:#fff;font-size:11px;font-weight:800;letter-spacing:.02em;">WA</a>
-<a href="tel:+91635688833" style="position:fixed;right:20px;bottom:88px;z-index:90;width:56px;height:56px;border-radius:50%;background:#5D2C8E;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(93,44,142,.45);color:#FFD75E;font-size:22px;">☎</a>
+<a href="https://wa.me/916356888833" target="_blank" style="position:fixed;right:20px;bottom:22px;z-index:90;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,.45);animation:kwg-pulse 2.4s infinite;color:#fff;font-size:11px;font-weight:800;letter-spacing:.02em;">WA</a>
+<a href="tel:+916356888833" style="position:fixed;right:20px;bottom:88px;z-index:90;width:56px;height:56px;border-radius:50%;background:#5D2C8E;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(93,44,142,.45);color:#FFD75E;font-size:22px;">☎</a>
 
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
 class Component extends DCLogic {
-  state = { screen: 'home', faq: 0, menuCat: 'thali', review: 0, loaded: false };
+  state = { screen: 'home', faq: 0, menuCat: 'thali', review: 0, loaded: false, menuOpen: false };
 
   reviews = [
     { text: "Best kulcha I've had outside Amritsar. The butter, the chole, the crunch — I drove 20 km just for this.", name: "Rohit Sharma", role: "Regular · Satellite, Ahmedabad" },
@@ -980,7 +1029,7 @@ class Component extends DCLogic {
   componentWillUnmount() { clearTimeout(this._t); clearInterval(this._r); }
 
   go(screen) {
-    this.setState({ screen });
+    this.setState({ screen, menuOpen: false });
     if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -1020,6 +1069,10 @@ class Component extends DCLogic {
       goFranchise: () => this.go('franchise'),
       goAbout: () => this.go('about'),
       goContact: () => this.go('contact'),
+      menuState: s.menuOpen ? 'open' : 'closed',
+      menuIcon: s.menuOpen ? '\u2715' : '\u2630',
+      toggleMenu: () => this.setState(x => ({ menuOpen: !x.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
       review: this.reviews[s.review],
       reviewDots: this.reviews.map((r, i) => ({
         style: i === s.review ? 'background:#FFD75E;width:26px;border-radius:6px;' : 'background:rgba(246,239,224,.35);',
