@@ -45,6 +45,25 @@
     font-size: 15px !important; box-shadow: 0 10px 26px rgba(250,198,19,.34) !important; }
 }
 </style>
+<style id="kwg-images">
+.kwg-thumb{ background:linear-gradient(145deg,#3a1866,#1D093A); }
+.kwg-thumb-ph{ display:flex; align-items:center; justify-content:center; text-align:center;
+  width:100%; height:100%; padding:6px; box-sizing:border-box;
+  background:linear-gradient(145deg,#3a1866,#1D093A); color:#FFD75E;
+  font-family:'Manrope',sans-serif; font-size:8.5px; font-weight:700; letter-spacing:.04em;
+  line-height:1.25; text-transform:uppercase; box-shadow:inset 0 0 0 1px rgba(250,198,19,.22); }
+/* Premium branded fallback tile for decorative slots without a real photo */
+.kwg-brandph{ position:relative; width:100%; height:100%; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:10px; text-align:center; padding:18px; box-sizing:border-box;
+  background:radial-gradient(120% 100% at 50% 0%, #3a1866 0%, #1D093A 70%);
+  box-shadow:inset 0 0 0 1px rgba(250,198,19,.18); overflow:hidden; }
+.kwg-brandph::before{ content:""; position:absolute; inset:0;
+  background:radial-gradient(60% 50% at 50% 40%, rgba(250,198,19,.10), transparent 70%); }
+.kwg-brandph img{ width:auto; height:52px; opacity:.95; filter:drop-shadow(0 3px 8px rgba(0,0,0,.4)); }
+.kwg-brandph span{ position:relative; color:#FFD75E; font-family:'Manrope',sans-serif; font-size:11px;
+  font-weight:700; letter-spacing:.22em; text-transform:uppercase; line-height:1.5; opacity:.85; }
+</style>
+
 
 <script>window.__resources={"https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/js/react.production.min.js", "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/js/react-dom.production.min.js"};</script>
 <meta charset="utf-8">
@@ -401,7 +420,7 @@
   <!-- HERO -->
   <section style="position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:#1D093A;">
     <div style="position:absolute;inset:0;">
-      <dc-import name="Photo" label="HERO — extreme close-up: butter melting over a golden Amritsari kulcha, steam rising, dark moody light" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import>
+      <img src="assets/img/menu/kwg-special-kulcha.webp" alt="Signature Amritsari kulcha, fresh off the tandoor" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;">
       <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(20,7,45,.94) 0%,rgba(20,7,45,.8) 42%,rgba(20,7,45,.32) 100%);"></div>
       <div style="position:absolute;inset:0;background:radial-gradient(80% 60% at 20% 30%,rgba(93,44,142,.35),transparent 70%);"></div>
     </div>
@@ -456,7 +475,7 @@
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;">
         <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 18px 50px rgba(45,15,82,.09);border:1px solid rgba(45,15,82,.06);transition:transform .4s ease,box-shadow .4s ease;" style-hover="transform:translateY(-8px);box-shadow:0 30px 70px rgba(45,15,82,.18);">
-          <div style="height:240px;position:relative;"><dc-import name="Photo" label="Amritsari Aloo Kulcha, split open, ghee glistening, chole on the side" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import><span style="position:absolute;top:14px;left:14px;background:#5D2C8E;color:#F6EFE0;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:999px;">Bestseller</span></div>
+          <div style="height:240px;position:relative;"><img src="assets/img/menu/aloo-kulcha.webp" alt="Amritsari Aloo Kulcha, split open with ghee" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"><span style="position:absolute;top:14px;left:14px;background:#5D2C8E;color:#F6EFE0;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:999px;">Bestseller</span></div>
           <div style="padding:26px;">
             <h3 style="font-family:'Marcellus',serif;font-size:24px;color:#2E0F52;margin:0 0 8px;">Amritsari Aloo Kulcha</h3>
             <p style="font-size:14.5px;color:rgba(42,33,28,.6);line-height:1.6;margin:0 0 18px;">Crisp, blistered, stuffed with spiced potato and finished with a knob of white butter.</p>
@@ -464,7 +483,7 @@
           </div>
         </div>
         <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 18px 50px rgba(45,15,82,.09);border:1px solid rgba(45,15,82,.06);transition:transform .4s ease,box-shadow .4s ease;" style-hover="transform:translateY(-8px);box-shadow:0 30px 70px rgba(45,15,82,.18);">
-          <div style="height:240px;position:relative;"><dc-import name="Photo" label="KWG Special Kulcha thali, loaded and pulled apart, ghee glistening" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import><span style="position:absolute;top:14px;left:14px;background:#FAC613;color:#1D093A;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:999px;">Chef's Pick</span></div>
+          <div style="height:240px;position:relative;"><img src="assets/img/menu/kwg-special-kulcha-thali.webp" alt="KWG Special Kulcha Thali" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"><span style="position:absolute;top:14px;left:14px;background:#FAC613;color:#1D093A;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:999px;">Chef's Pick</span></div>
           <div style="padding:26px;">
             <h3 style="font-family:'Marcellus',serif;font-size:24px;color:#2E0F52;margin:0 0 8px;">KWG Special Kulcha Thali</h3>
             <p style="font-size:14.5px;color:rgba(42,33,28,.6);line-height:1.6;margin:0 0 18px;">The house special — everything we do best, loaded into one handmade kulcha thali with all the sides.</p>
@@ -472,7 +491,7 @@
           </div>
         </div>
         <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 18px 50px rgba(45,15,82,.09);border:1px solid rgba(45,15,82,.06);transition:transform .4s ease,box-shadow .4s ease;" style-hover="transform:translateY(-8px);box-shadow:0 30px 70px rgba(45,15,82,.18);">
-          <div style="height:240px;position:relative;"><dc-import name="Photo" label="Chur-Chur Naan Platter — crushed naan with chhole, dal makhni &amp; sides" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import><span style="position:absolute;top:14px;left:14px;background:#2E0F52;color:#FFD75E;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:999px;">Popular</span></div>
+          <div style="height:240px;position:relative;"><img src="assets/img/menu/chur-chur-naan.webp" alt="Chur-Chur Naan Platter" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"><span style="position:absolute;top:14px;left:14px;background:#2E0F52;color:#FFD75E;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:999px;">Popular</span></div>
           <div style="padding:26px;">
             <h3 style="font-family:'Marcellus',serif;font-size:24px;color:#2E0F52;margin:0 0 8px;">Chur-Chur Naan Platter</h3>
             <p style="font-size:14.5px;color:rgba(42,33,28,.6);line-height:1.6;margin:0 0 18px;">Flaky crushed-to-order naan with chhole, dal makhni, paneer sabzi and all the sides.</p>
@@ -520,7 +539,7 @@
   <section style="background:#F6EFE0;padding:clamp(64px,9vw,110px) clamp(20px,5vw,64px);">
     <div style="max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(48px,7vw,90px);">
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,64px);align-items:center;">
-        <div style="border-radius:22px;overflow:hidden;aspect-ratio:5/4;box-shadow:0 24px 60px rgba(45,15,82,.14);"><dc-import name="Photo" label="Restaurant interior — warm wood, brass lamps, jharokha arches, families dining" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
+        <div style="border-radius:22px;overflow:hidden;aspect-ratio:5/4;box-shadow:0 24px 60px rgba(45,15,82,.14);"><div class="kwg-brandph" style="width:100%;height:100%;display:block;"><img src="assets/img/logo.png" alt=""><span>Kulche Wali Gali</span></div></div>
         <div>
           <div style="font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:#5D2C8E;margin-bottom:16px;">The Experience</div>
           <h2 style="font-family:'Marcellus',serif;font-size:clamp(28px,4vw,44px);color:#2E0F52;margin:0 0 18px;font-weight:400;">Step into a Punjabi gali</h2>
@@ -538,7 +557,7 @@
             <div><div style="font-family:'Marcellus',serif;font-size:34px;color:#5D2C8E;">Daily</div><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(42,33,28,.55);">Fresh dough</div></div>
           </div>
         </div>
-        <div style="order:1;border-radius:22px;overflow:hidden;aspect-ratio:5/4;box-shadow:0 24px 60px rgba(45,15,82,.14);"><dc-import name="Photo" label="Flat-lay of raw ingredients — fresh coriander, tomatoes, spices, ghee, flour" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
+        <div style="order:1;border-radius:22px;overflow:hidden;aspect-ratio:5/4;box-shadow:0 24px 60px rgba(45,15,82,.14);"><img src="assets/img/menu/dal-makhni.webp" alt="Freshly prepared dal makhani" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"></div>
       </div>
     </div>
   </section>
@@ -575,20 +594,20 @@
         <div style="font-size:14px;color:rgba(42,33,28,.55);max-width:320px;">Every plate is Instagram-worthy — tag <span style="color:#5D2C8E;font-weight:700;">@kulchewaligali</span></div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:16px;">
-        <div style="grid-column:span 2;grid-row:span 2;border-radius:16px;overflow:hidden;"><dc-import name="Photo" label="Hero kulcha platter overhead" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
-        <div style="border-radius:16px;overflow:hidden;"><dc-import name="Photo" label="Tandoor flames" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
-        <div style="border-radius:16px;overflow:hidden;"><dc-import name="Photo" label="Lassi glass" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
-        <div style="grid-column:span 2;border-radius:16px;overflow:hidden;"><dc-import name="Photo" label="Chef slapping dough into tandoor" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
-        <div style="border-radius:16px;overflow:hidden;"><dc-import name="Photo" label="Happy family at table" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
-        <div style="border-radius:16px;overflow:hidden;"><dc-import name="Photo" label="Dal makhani close-up" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
-        <div style="grid-column:span 2;border-radius:16px;overflow:hidden;"><dc-import name="Photo" label="Interior wide shot, warm lights" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
+        <div style="grid-column:span 2;grid-row:span 2;border-radius:16px;overflow:hidden;"><img src="assets/img/menu/punjabi-thali.webp" alt="Punjabi thali platter" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"></div>
+        <div style="border-radius:16px;overflow:hidden;"><img src="assets/img/menu/tandoori-roti.webp" alt="Fresh tandoori roti" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"></div>
+        <div style="border-radius:16px;overflow:hidden;"><img src="assets/img/menu/kulhad-lassi.webp" alt="Kulhad lassi" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"></div>
+        <div style="grid-column:span 2;border-radius:16px;overflow:hidden;"><img src="assets/img/menu/chur-chur-naan.webp" alt="Handmade kulcha, slapped into the tandoor" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"></div>
+        <div style="border-radius:16px;overflow:hidden;"><img src="assets/img/menu/cheese-kulcha-thali.webp" alt="A shared kulcha thali" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"></div>
+        <div style="border-radius:16px;overflow:hidden;"><img src="assets/img/menu/dal-makhni.webp" alt="Dal makhani close-up" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"></div>
+        <div style="grid-column:span 2;border-radius:16px;overflow:hidden;"><img src="assets/img/menu/amritsari-chole.webp" alt="Amritsari chole" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"></div>
       </div>
     </div>
   </section>
 
   <!-- STORY TEASER -->
   <section style="background:#2E0F52;padding:clamp(70px,10vw,130px) clamp(20px,5vw,64px);text-align:center;position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;opacity:.14;"><dc-import name="Photo" label="Vintage Amritsar street backdrop" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
+    <div style="position:absolute;inset:0;opacity:.14;"><img src="assets/img/menu/rabdi.webp" alt="Rabdi, slow-reduced sweetened milk" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"></div>
     <div style="max-width:760px;margin:0 auto;position:relative;">
       <div style="font-family:'Marcellus',serif;font-size:52px;color:#FFD75E;margin-bottom:20px;">“</div>
       <p style="font-family:'Marcellus',serif;font-size:clamp(24px,3.4vw,40px);line-height:1.45;color:#F6EFE0;margin:0 0 30px;font-weight:400;">It started with one cart, one recipe, and a promise — that no one leaves our gali hungry.</p>
@@ -600,7 +619,7 @@
   <section style="background:#F6EFE0;padding:clamp(64px,9vw,110px) clamp(20px,5vw,64px);">
     <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;">
       <div style="background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 20px 54px rgba(45,15,82,.1);display:flex;flex-direction:column;">
-        <div style="aspect-ratio:16/9;"><dc-import name="Photo" label="Google Map pin / storefront, Ahmedabad" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
+        <div style="aspect-ratio:16/9;"><div class="kwg-brandph" style="width:100%;height:100%;display:block;"><img src="assets/img/logo.png" alt=""><span>Ahmedabad</span></div></div>
         <div style="padding:32px;">
           <div style="font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#5D2C8E;margin-bottom:12px;">Visit Us</div>
           <h3 style="font-family:'Marcellus',serif;font-size:26px;color:#2E0F52;margin:0 0 10px;">Ahmedabad, Gujarat</h3>
@@ -626,12 +645,12 @@
         <h2 style="font-family:'Marcellus',serif;font-size:clamp(26px,4vw,42px);color:#F6EFE0;margin:0;font-weight:400;">Follow the flavour</h2>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;">
-        <div style="aspect-ratio:1;border-radius:12px;overflow:hidden;"><dc-import name="Photo" label="IG post 1" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
-        <div style="aspect-ratio:1;border-radius:12px;overflow:hidden;"><dc-import name="Photo" label="IG post 2" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
-        <div style="aspect-ratio:1;border-radius:12px;overflow:hidden;"><dc-import name="Photo" label="IG post 3" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
-        <div style="aspect-ratio:1;border-radius:12px;overflow:hidden;"><dc-import name="Photo" label="IG post 4" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
-        <div style="aspect-ratio:1;border-radius:12px;overflow:hidden;"><dc-import name="Photo" label="IG post 5" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
-        <div style="aspect-ratio:1;border-radius:12px;overflow:hidden;"><dc-import name="Photo" label="IG post 6" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
+        <div style="aspect-ratio:1;border-radius:12px;overflow:hidden;"><img src="assets/img/menu/kwg-special-kulcha.webp" alt="KWG Special Kulcha" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"></div>
+        <div style="aspect-ratio:1;border-radius:12px;overflow:hidden;"><img src="assets/img/menu/delhi-ke-chole-bhature.webp" alt="Delhi ke chole bhature" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"></div>
+        <div style="aspect-ratio:1;border-radius:12px;overflow:hidden;"><img src="assets/img/menu/kulhad-lassi.webp" alt="Kulhad lassi" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"></div>
+        <div style="aspect-ratio:1;border-radius:12px;overflow:hidden;"><img src="assets/img/menu/paneer-sabzi.webp" alt="Paneer sabzi" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"></div>
+        <div style="aspect-ratio:1;border-radius:12px;overflow:hidden;"><img src="assets/img/menu/rajasthan-ki-daal-bati.webp" alt="Rajasthan ki daal bati" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"></div>
+        <div style="aspect-ratio:1;border-radius:12px;overflow:hidden;"><img src="assets/img/menu/jeera-rice.webp" alt="Jeera rice" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"></div>
       </div>
     </div>
   </section>
@@ -665,7 +684,7 @@
 <sc-if value="{{ isMenu }}" hint-placeholder-val="{{ false }}">
 <main style="padding-top:82px;">
   <section style="background:#2E0F52;padding:clamp(56px,8vw,90px) clamp(20px,5vw,64px);text-align:center;position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;opacity:.18;"><dc-import name="Photo" label="Menu hero — spread of kulchas top-down" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
+    <div style="position:absolute;inset:0;opacity:.18;"><img src="assets/img/menu/kwg-special-kulcha-thali.webp" alt="A spread of kulchas" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"></div>
     <div style="position:relative;max-width:760px;margin:0 auto;">
       <div style="font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:#FAC613;margin-bottom:16px;">The Menu</div>
       <h1 style="font-family:'Marcellus',serif;font-size:clamp(38px,6vw,68px);color:#F6EFE0;margin:0 0 16px;font-weight:400;">Handmade, fired fresh</h1>
@@ -689,7 +708,7 @@
       <div style="display:flex;flex-direction:column;">
         <sc-for list="{{ activeItems }}" as="it" hint-placeholder-count="4">
           <div style="display:flex;align-items:center;gap:22px;padding:22px 0;border-bottom:1px dashed rgba(45,15,82,.16);">
-            <div style="width:88px;height:88px;border-radius:14px;overflow:hidden;flex:none;"><dc-import name="Photo" label="{{ it.name }}" hint-size="88px,88px" style="width:100%;height:100%;display:block;"></dc-import></div>
+            <div class="kwg-thumb" style="width:88px;height:88px;border-radius:14px;overflow:hidden;flex:none;"><sc-if value="{{ it.hasImg }}"><img src="{{ it.img }}" alt="{{ it.name }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></sc-if><sc-if value="{{ it.noImg }}"><span class="kwg-thumb-ph">{{ it.name }}</span></sc-if></div>
             <div style="flex:1;min-width:0;">
               <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
                 <h3 style="font-family:'Marcellus',serif;font-size:20px;color:#2E0F52;margin:0;">{{ it.name }}</h3>
@@ -722,7 +741,7 @@
 <sc-if value="{{ isFranchise }}" hint-placeholder-val="{{ false }}">
 <main style="padding-top:82px;">
   <section style="position:relative;min-height:62vh;display:flex;align-items:center;overflow:hidden;background:#1D093A;padding:clamp(60px,8vw,110px) clamp(20px,5vw,64px);">
-    <div style="position:absolute;inset:0;"><dc-import name="Photo" label="Franchise hero — bustling packed restaurant, golden hour, queue at counter" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import><div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(20,7,45,.94),rgba(20,7,45,.55));"></div></div>
+    <div style="position:absolute;inset:0;"><img src="assets/img/menu/kwg-special-kulcha.webp" alt="Kulche Wali Gali" loading="lazy" style="width:100%;height:100%;display:block;object-fit:cover;"><div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(20,7,45,.94),rgba(20,7,45,.55));"></div></div>
     <div style="position:relative;max-width:1200px;margin:0 auto;width:100%;">
       <div style="max-width:640px;">
         <div style="font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:#FFD75E;margin-bottom:18px;">Franchise Opportunity</div>
@@ -824,7 +843,7 @@
 
   <section style="background:#F6EFE0;padding:clamp(56px,8vw,100px) clamp(20px,5vw,64px);">
     <div style="max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(30px,5vw,64px);align-items:center;">
-      <div style="border-radius:22px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 24px 60px rgba(45,15,82,.14);"><dc-import name="Photo" label="Founder portrait at the tandoor, warm candid" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
+      <div style="border-radius:22px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 24px 60px rgba(45,15,82,.14);"><div class="kwg-brandph" style="width:100%;height:100%;display:block;"><img src="assets/img/logo.png" alt=""><span>Our Founder</span></div></div>
       <div>
         <h2 style="font-family:'Marcellus',serif;font-size:clamp(26px,3.6vw,40px);color:#2E0F52;margin:0 0 18px;font-weight:400;">It began in a Punjab kitchen</h2>
         <p style="font-size:16px;line-height:1.75;color:rgba(42,33,28,.7);margin:0 0 16px;">Our founder grew up watching their grandmother knead dough before sunrise, the whole street waking to the smell of fresh kulchas. That recipe — never written down, only felt — travelled with the family to Ahmedabad.</p>
@@ -864,7 +883,7 @@
 
   <section style="background:#F6EFE0;padding:clamp(50px,7vw,90px) clamp(20px,5vw,64px);">
     <div style="max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;">
-      <div style="border-radius:22px;overflow:hidden;min-height:340px;box-shadow:0 20px 54px rgba(45,15,82,.1);"><dc-import name="Photo" label="Google Maps embed — Kulche Wali Gali, Ahmedabad" hint-size="100%,100%" style="width:100%;height:100%;display:block;"></dc-import></div>
+      <div style="border-radius:22px;overflow:hidden;min-height:340px;box-shadow:0 20px 54px rgba(45,15,82,.1);"><div class="kwg-brandph" style="width:100%;height:100%;display:block;"><img src="assets/img/logo.png" alt=""><span>Find us in Ahmedabad</span></div></div>
       <div style="display:flex;flex-direction:column;gap:20px;">
         <div style="background:#fff;border-radius:16px;padding:26px;box-shadow:0 12px 34px rgba(45,15,82,.07);">
           <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#5D2C8E;margin-bottom:8px;">Address</div>
@@ -1047,6 +1066,33 @@ class Component extends DCLogic {
     return map[tag] || 'background:rgba(45,15,82,.1);color:#5D2C8E;';
   }
 
+  menuImages = {
+    'Cheese Kulcha Thali': 'cheese-kulcha-thali',
+    'KWG Special Kulcha Thali': 'kwg-special-kulcha-thali',
+    'Aloo Kulcha': 'aloo-kulcha',
+    'Chur-Chur Naan': 'chur-chur-naan',
+    'KWG Special Kulcha': 'kwg-special-kulcha',
+    'Delhi Ke Chole Bhature': 'delhi-ke-chole-bhature',
+    'Punjabi Thali': 'punjabi-thali',
+    'Rajasthan Ki Daal Bati': 'rajasthan-ki-daal-bati',
+    'Dal Makhni': 'dal-makhni',
+    'Amritsari Chole': 'amritsari-chole',
+    'Paneer Sabzi': 'paneer-sabzi',
+    'Rajasthani Dal': 'rajasthani-dal',
+    'Jeera Rice': 'jeera-rice',
+    'Bhature': 'bhature',
+    'Tandoori Roti': 'tandoori-roti',
+    'Roasted Masala Papad': 'roasted-masala-papad',
+    'Roasted Papad': 'roasted-papad',
+    'Dahi': 'dahi',
+    'Lasun Ki Chutney': 'lasun-ki-chutney',
+    'Rabdi': 'rabdi',
+    'Kulhad Lassi': 'kulhad-lassi',
+    'Chaas': 'chaas'
+  };
+  // To add a missing photo later: drop assets/img/menu/<slug>-thumb.webp (+ <slug>.webp)
+  // and add one line here mapping the exact item name to <slug>.
+
   renderVals() {
     const s = this.state;
     const activeCat = this.menu.find(c => c.id === s.menuCat) || this.menu[0];
@@ -1084,7 +1130,10 @@ class Component extends DCLogic {
         style: c.id === s.menuCat ? 'background:#5D2C8E;color:#F6EFE0;border-color:#5D2C8E;' : 'background:transparent;color:#5D2C8E;'
       })),
       activeCat: { name: activeCat.name, tagline: activeCat.tagline },
-      activeItems: activeCat.items.map(it => ({ ...it, tagStyle: it.tag ? this.tagStyleFor(it.tag) : 'display:none;' })),
+      activeItems: activeCat.items.map(it => {
+        const slug = this.menuImages[it.name] || '';
+        return { ...it, img: slug ? ('assets/img/menu/' + slug + '-thumb.webp') : '', hasImg: !!slug, noImg: !slug, tagStyle: it.tag ? this.tagStyleFor(it.tag) : 'display:none;' };
+      }),
       journey: this.journey,
       faqList: this.faqs.map((f, i) => ({
         q: f.q, a: f.a,
