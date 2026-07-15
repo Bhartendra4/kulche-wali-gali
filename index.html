@@ -834,9 +834,10 @@
         </div>
         <input id="fr-investment" placeholder="Investment budget (₹)" style="padding:15px 18px;border:1.5px solid rgba(45,15,82,.16);border-radius:12px;font-size:14px;font-family:'Manrope';outline:none;">
         <textarea id="fr-message" placeholder="Tell us about yourself" rows="3" style="padding:15px 18px;border:1.5px solid rgba(45,15,82,.16);border-radius:12px;font-size:14px;font-family:'Manrope';outline:none;resize:vertical;"></textarea>
+        <input id="fr-website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;">
         <div id="fr-error" style="display:none;color:#B0361B;font-size:13px;font-weight:600;text-align:center;"></div>
         <button id="fr-submit" onclick="{{ submitFranchise }}" style="background:#5D2C8E;color:#F6EFE0;padding:17px;border:none;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;font-family:'Manrope';{{ franchiseBtnStyle }}">{{ franchiseBtnText }}</button>
-        <sc-if value="{{ franchiseSent }}"><div style="background:#2E7D4F;color:#fff;padding:15px 18px;border-radius:12px;font-size:14px;font-weight:600;text-align:center;">✓ Thank you! Your franchise enquiry has been submitted successfully. Our team will contact you shortly.</div></sc-if>
+        <sc-if value="{{ franchiseSent }}"><div style="position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:rgba(20,7,45,.72);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);padding:20px;"><div style="background:#fff;border-radius:22px;max-width:420px;width:100%;padding:40px 34px;text-align:center;box-shadow:0 34px 90px rgba(0,0,0,.45);"><div style="width:66px;height:66px;border-radius:50%;background:#2E7D4F;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;color:#fff;font-size:34px;line-height:1;">✓</div><h3 style="font-family:'Marcellus',serif;font-size:26px;color:#2E0F52;margin:0 0 12px;font-weight:400;">Thank you!</h3><p style="font-size:15px;line-height:1.65;color:rgba(42,33,28,.7);margin:0 0 26px;">Your franchise enquiry has been submitted successfully.<br>Our team will contact you shortly.</p><button onclick="{{ closeFranchiseSuccess }}" style="background:#5D2C8E;color:#F6EFE0;padding:14px 34px;border:none;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Manrope';">Close</button></div></div></sc-if>
         <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:6px;">
           <a href="https://wa.me/916356888833" target="_blank" style="font-size:13px;font-weight:700;color:#25D366;">WhatsApp</a>
           <span style="color:rgba(42,33,28,.3);">·</span>
@@ -1164,51 +1165,41 @@ class Component extends DCLogic {
       goContact: () => this.go('contact'),
       franchiseSent: s.franchiseSent,
       franchiseSending: s.franchiseSending,
-      franchiseBtnText: s.franchiseSending ? 'Sending…' : (s.franchiseSent ? 'Submitted ✓' : 'Submit Enquiry'),
-      franchiseBtnStyle: (s.franchiseSending || s.franchiseSent) ? 'opacity:.7;pointer-events:none;' : '',
+      franchiseBtnText: s.franchiseSending ? 'Sending…' : 'Submit Enquiry',
+      franchiseBtnStyle: s.franchiseSending ? 'opacity:.7;pointer-events:none;' : '',
+      closeFranchiseSuccess: () => this.setState({ franchiseSent: false }),
       submitFranchise: () => {
-        // ===== Web3Forms Access Key — paste your key between the quotes below =====
-        const WEB3FORMS_ACCESS_KEY = '4d96d355-e310-4f10-97ac-b498560e5b50';
-        // =========================================================================
-        if (this.state.franchiseSending || this.state.franchiseSent) return; // prevent duplicate submissions
+        // ===== Backend API base URL — set to your deployed backend (see backend/README.md) =====
+        const FRANCHISE_API_URL = 'http://localhost:5000';
+        // =====================================================================================
+        if (this.state.franchiseSending) return; // prevent duplicate submissions
         const g = id => (document.getElementById(id)?.value || '').trim();
-        const name=g('fr-name'), phone=g('fr-phone'), email=g('fr-email'), city=g('fr-city'), state=g('fr-state'), inv=g('fr-investment'), msg=g('fr-message');
+        const name=g('fr-name'), phone=g('fr-phone'), email=g('fr-email'), city=g('fr-city'), state=g('fr-state'), inv=g('fr-investment'), msg=g('fr-message'), hp=g('fr-website');
         const errEl=document.getElementById('fr-error');
         const fail=t=>{ if(errEl){ errEl.textContent=t; errEl.style.display='block'; } };
+        if(hp){ this.setState({ franchiseSent:true }); return; } // honeypot filled -> silently accept (bot)
         if(!name||!phone||!email||!city||!state){ fail('Please fill in your name, mobile, email, city and state.'); return; }
         if(!/^\S+@\S+\.\S+$/.test(email)){ fail('Please enter a valid email address.'); return; }
-        if(!/^[0-9+\-\s]{7,15}$/.test(phone)){ fail('Please enter a valid mobile number.'); return; }
+        if(!/^[0-9+\-\s()]{7,20}$/.test(phone)){ fail('Please enter a valid mobile number.'); return; }
         if(errEl) errEl.style.display='none';
         this.setState({ franchiseSending: true });
-        const stamp = new Date().toLocaleString('en-IN', { timeZone:'Asia/Kolkata' });
-        const waText = encodeURIComponent(['Franchise Enquiry — Kulche Wali Gali','','Name: '+name,'Mobile: '+phone,'Email: '+email,'City: '+city,'State: '+state,'Investment: '+inv,'Message: '+msg].join('\n'));
-        const send = (ip) => fetch('https://api.web3forms.com/submit', {
-          method:'POST', headers:{'Content-Type':'application/json', Accept:'application/json'},
-          body: JSON.stringify({
-            access_key: WEB3FORMS_ACCESS_KEY,
-            subject: 'New Franchise Enquiry — Kulche Wali Gali',
-            from_name: name, replyto: email,
-            'Full Name': name, 'Mobile Number': phone, 'Email': email, 'City': city, 'State': state,
-            'Investment Budget': inv || 'Not specified', 'Message': msg || 'Not specified',
-            'Date & Time': stamp, 'IP Address': ip || 'N/A',
-            'User Agent': (typeof navigator!=='undefined' && navigator.userAgent) || 'N/A',
-            'Source Website': location.href
-          })
-        }).then(r=>r.json());
-        fetch('https://api.ipify.org?format=json').then(r=>r.json()).then(d=>d && d.ip).catch(()=>'')
-          .then(ip => send(ip))
-          .then(res => {
-            if (res && res.success) {
+        fetch(FRANCHISE_API_URL + '/api/franchise-enquiry', {
+          method:'POST', headers:{ 'Content-Type':'application/json' },
+          body: JSON.stringify({ fullName:name, mobile:phone, email:email, city:city, state:state, investmentBudget:inv, message:msg, sourceWebsite: location.href, website: hp })
+        })
+          .then(r => r.json().then(d => ({ ok:r.ok, d })))
+          .then(({ ok, d }) => {
+            if (ok && d && d.success) {
+              ['fr-name','fr-phone','fr-email','fr-city','fr-state','fr-investment','fr-message'].forEach(id => { const e=document.getElementById(id); if(e) e.value=''; });
               this.setState({ franchiseSending:false, franchiseSent:true });
-              window.open('https://wa.me/916356888833?text='+waText, '_blank');
             } else {
               this.setState({ franchiseSending:false });
-              fail('Sorry, we could not submit your enquiry. Please try again, or reach us on WhatsApp.');
+              fail((d && d.message) || 'Sorry, we could not submit your enquiry. Please try again.');
             }
           })
           .catch(() => {
             this.setState({ franchiseSending:false });
-            fail('Network error — please try again, or reach us on WhatsApp.');
+            fail('We could not reach the server. Please check your connection and try again.');
           });
       },
       menuState: s.menuOpen ? 'open' : 'closed',
