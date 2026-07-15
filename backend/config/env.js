@@ -19,7 +19,17 @@ const env = {
   mailTo: process.env.MAIL_TO || 'contact@pinkspoonfood.com',
   duplicateWindowMinutes: parseInt(process.env.DUPLICATE_WINDOW_MINUTES || '10', 10),
   rateLimitMax: parseInt(process.env.RATE_LIMIT_MAX || '5', 10),
-  rateLimitWindowMinutes: parseInt(process.env.RATE_LIMIT_WINDOW_MINUTES || '15', 10)
+  rateLimitWindowMinutes: parseInt(process.env.RATE_LIMIT_WINDOW_MINUTES || '15', 10),
+
+  // Admin panel / auth
+  // Secret used to sign the session cookie. CHANGE THIS in production.
+  sessionSecret: process.env.SESSION_SECRET || 'kwg-dev-session-secret-change-me',
+  // Seeded on first startup only (if no admin exists). The default account is
+  // forced to change its password on first login.
+  admin: {
+    defaultUsername: process.env.ADMIN_DEFAULT_USERNAME || 'admin',
+    defaultPassword: process.env.ADMIN_DEFAULT_PASSWORD || 'ChangeMe@123'
+  }
 };
 
 module.exports = env;

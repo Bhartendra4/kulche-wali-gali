@@ -169,3 +169,30 @@ npm start                 # http://localhost:5000
 Server-side validation ✓ · Rate limiting ✓ · Honeypot ✓ · Email + mobile validation ✓ ·
 Duplicate detection ✓ · SQL-injection safe (Sequelize) ✓ · XSS-escaped inputs + helmet ✓ ·
 Configurable CORS ✓ · Secrets in `.env` (git-ignored) ✓.
+
+---
+
+## Admin Panel
+
+A secure, session-based admin dashboard is served by this backend.
+
+- **URL:** `http://localhost:5000/admin` (same origin as the API)
+- **Default account (first run only):** username `admin`, password `ChangeMe@123`
+  - You are **forced to change this password on first login.**
+  - Change the seed values with `ADMIN_DEFAULT_USERNAME` / `ADMIN_DEFAULT_PASSWORD` before first run if you prefer.
+- **Security:** passwords are stored as bcrypt hashes; sessions are signed with
+  `SESSION_SECRET` and persisted in a `sessions` table; login is rate-limited.
+  All enquiry read/update/delete/export routes require an authenticated session.
+
+### Features
+- View all franchise enquiries (paginated)
+- Search (name, email, mobile, city, state, message)
+- Filter by status and archived state; sortable columns
+- Edit enquiry status (New / Contacted / Follow Up / Closed)
+- Delete enquiries
+- Export to CSV and Excel
+- View **IP Address** and **User Agent** — only inside the Admin panel, never in emails
+
+### Required environment variables (see `.env.example`)
+- `SESSION_SECRET` — long random string used to sign session cookies
+- `SMTP_PASS` — mailbox password; required for enquiry emails to actually send

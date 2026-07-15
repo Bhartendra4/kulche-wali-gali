@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>KWG Admin · Franchise Enquiries</title>
+<style>
+  :root{
+    --purple:#5D2C8E; --purple-d:#3f1d63; --cream:#F7F3EA; --gold:#FAC613;
+    --ink:#241436; --muted:#6b6577; --line:#e7e2d6; --card:#ffffff;
+    --green:#1f9d55; --red:#d64545; --blue:#2b6cb0; --amber:#b7791f;
+    --shadow:0 10px 30px rgba(36,20,54,.08);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--cream);color:var(--ink);font-size:14px;line-height:1.5}
+  button{font-family:inherit;cursor:pointer}
+  .hidden{display:none !important}
+
+  /* ---------- Auth screens ---------- */
+  .auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .auth-card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);width:100%;max-width:400px;
+    padding:34px 30px;border:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .brand-logo{width:38px;height:38px;border-radius:10px;background:var(--purple);color:#fff;display:flex;
+    align-items:center;justify-content:center;font-weight:800;font-size:16px}
+  .brand-name{font-weight:800;font-size:16px;letter-spacing:.01em}
+  .auth-title{font-size:20px;font-weight:800;margin:16px 0 4px}
+  .auth-sub{color:var(--muted);margin:0 0 20px;font-size:13px}
+  label{display:block;font-weight:600;font-size:12.5px;margin:12px 0 6px;color:#4a4358}
+  input[type=text],input[type=password],input[type=search],select{
+    width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px;
+    background:#fff;color:var(--ink);outline:none;transition:border .15s,box-shadow .15s}
+  input:focus,select:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(93,44,142,.12)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:none;border-radius:10px;
+    padding:11px 16px;font-weight:700;font-size:13.5px;transition:transform .05s,filter .15s,background .15s}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--purple);color:#fff;width:100%}
+  .btn-primary:hover{filter:brightness(1.08)}
+  .btn-ghost{background:transparent;color:var(--purple);border:1px solid var(--line)}
+  .btn-ghost:hover{background:#faf7f0}
+  .btn-sm{padding:7px 11px;font-size:12.5px;border-radius:8px}
+  .btn-danger{background:var(--red);color:#fff}
+  .msg{margin-top:14px;padding:10px 12px;border-radius:9px;font-size:13px;display:none}
+  .msg.err{display:block;background:#fdecec;color:#a12525;border:1px solid #f6cccc}
+  .msg.ok{display:block;background:#eafaf0;color:#1a6b3b;border:1px solid #bfe8cf}
+  .hint{font-size:12px;color:var(--muted);margin-top:6px}
+
+  /* ---------- Dashboard shell ---------- */
+  .topbar{position:sticky;top:0;z-index:20;background:var(--purple);color:#fff;display:flex;align-items:center;
+    justify-content:space-between;padding:12px 20px;box-shadow:0 4px 14px rgba(36,20,54,.15)}
+  .topbar .brand-name{color:#fff}
+  .topbar .brand-logo{background:var(--gold);color:var(--purple-d)}
+  .top-right{display:flex;align-items:center;gap:12px}
+  .user-chip{font-size:13px;opacity:.95}
+  .user-chip b{font-weight:700}
+  .top-btn{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.25)}
+  .top-btn:hover{background:rgba(255,255,255,.24)}
+  .wrap{max-width:1240px;margin:0 auto;padding:22px 20px 60px}
+
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:20px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+  .stat .n{font-size:26px;font-weight:800;line-height:1}
+  .stat .l{font-size:12px;color:var(--muted);margin-top:6px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+  .stat.new .n{color:var(--blue)} .stat.contacted .n{color:var(--amber)}
+  .stat.follow .n{color:var(--purple)} .stat.closed .n{color:var(--green)}
+
+  .toolbar{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:16px;
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center;box-shadow:var(--shadow)}
+  .toolbar .grow{flex:1 1 220px;min-width:180px}
+  .toolbar select{width:auto;min-width:140px}
+  .spacer{flex:1 1 auto}
+
+  .table-card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+  .table-scroll{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;min-width:900px}
+  th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle;white-space:nowrap}
+  th{background:#faf7f0;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:#6a6277;font-weight:700;
+    cursor:pointer;user-select:none}
+  th.no-sort{cursor:default}
+  tbody tr:hover{background:#fbfaf6}
+  td.wrap-cell{white-space:normal;max-width:230px}
+  .pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:700}
+  .pill.New{background:#e5effb;color:#1e5aa0}
+  .pill.Contacted{background:#fcf1dc;color:#8a5e12}
+  .pill\.Follow{background:#efe6f9;color:#5D2C8E}
+  .pill.Closed{background:#e4f6ec;color:#1a6b3b}
+  .status-select{padding:5px 8px;font-size:12.5px;border-radius:8px}
+  .row-actions{display:flex;gap:6px}
+  .muted{color:var(--muted)}
+  .empty{padding:44px;text-align:center;color:var(--muted)}
+  .pagination{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;flex-wrap:wrap}
+  .pagination .pages{display:flex;gap:6px;align-items:center}
+
+  /* ---------- Detail drawer ---------- */
+  .overlay{position:fixed;inset:0;background:rgba(20,10,32,.45);z-index:40;display:flex;justify-content:flex-end}
+  .drawer{width:100%;max-width:520px;height:100%;background:#fff;overflow-y:auto;box-shadow:-10px 0 40px rgba(0,0,0,.2);
+    animation:slidein .18s ease}
+  @keyframes slidein{from{transform:translateX(30px);opacity:.6}to{transform:none;opacity:1}}
+  .drawer-head{position:sticky;top:0;background:var(--purple);color:#fff;padding:16px 20px;display:flex;
+    align-items:center;justify-content:space-between}
+  .drawer-head h3{margin:0;font-size:16px}
+  .x-btn{background:rgba(255,255,255,.16);color:#fff;border:none;width:32px;height:32px;border-radius:8px;font-size:16px}
+  .detail{padding:8px 20px 30px}
+  .field{padding:12px 0;border-bottom:1px solid var(--line)}
+  .field .k{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+  .field .v{font-size:14px;margin-top:3px;word-break:break-word;white-space:pre-wrap}
+  .tech{background:#faf7f0;border-radius:10px;padding:4px 14px;margin-top:10px}
+  .tech .field{border-bottom:1px dashed var(--line)}
+  .tech-note{font-size:11.5px;color:var(--muted);padding:8px 0 2px}
+
+  .spinner{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.5);border-top-color:#fff;
+    border-radius:50%;animation:spin .7s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .loading-row td{text-align:center;color:var(--muted);padding:36px}
+
+  @media(max-width:640px){
+    .wrap{padding:16px 12px 50px}
+    .toolbar select,.toolbar .grow{width:100%;flex-basis:100%}
+    .user-chip{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="view-login" class="auth-wrap">
+  <div class="auth-card">
+    <div class="brand"><div class="brand-logo">KWG</div><div class="brand-name">Kulche Wali Gali</div></div>
+    <h1 class="auth-title">Admin Login</h1>
+    <p class="auth-sub">Sign in to manage franchise enquiries.</p>
+    <form id="login-form" autocomplete="off">
+      <label for="login-username">Username</label>
+      <input id="login-username" type="text" autocomplete="username" required />
+      <label for="login-password">Password</label>
+      <input id="login-password" type="password" autocomplete="current-password" required />
+      <div style="height:14px"></div>
+      <button class="btn btn-primary" type="submit" id="login-btn">Sign In</button>
+      <div id="login-msg" class="msg"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ CHANGE PASSWORD ============ -->
+<div id="view-change" class="auth-wrap hidden">
+  <div class="auth-card">
+    <div class="brand"><div class="brand-logo">KWG</div><div class="brand-name">Kulche Wali Gali</div></div>
+    <h1 class="auth-title">Change Password</h1>
+    <p class="auth-sub" id="change-sub">For security, set a new password before continuing.</p>
+    <form id="change-form" autocomplete="off">
+      <label for="cur-password">Current password</label>
+      <input id="cur-password" type="password" autocomplete="current-password" required />
+      <label for="new-password">New password</label>
+      <input id="new-password" type="password" autocomplete="new-password" required />
+      <div class="hint">At least 8 characters, including letters and numbers.</div>
+      <label for="new-password2">Confirm new password</label>
+      <input id="new-password2" type="password" autocomplete="new-password" required />
+      <div style="height:14px"></div>
+      <button class="btn btn-primary" type="submit" id="change-btn">Update Password</button>
+      <button class="btn btn-ghost" type="button" id="change-cancel" style="width:100%;margin-top:8px">Cancel</button>
+      <div id="change-msg" class="msg"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ================ DASHBOARD ================ -->
+<div id="view-dash" class="hidden">
+  <div class="topbar">
+    <div class="brand"><div class="brand-logo">KWG</div><div class="brand-name">Franchise Enquiries</div></div>
+    <div class="top-right">
+      <span class="user-chip">Signed in as <b id="who">admin</b></span>
+      <button class="btn btn-sm top-btn" id="btn-change-pw">Change password</button>
+      <button class="btn btn-sm top-btn" id="btn-logout">Log out</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="stats" id="stats">
+      <div class="stat"><div class="n" id="s-total">–</div><div class="l">Total</div></div>
+      <div class="stat new"><div class="n" id="s-new">–</div><div class="l">New</div></div>
+      <div class="stat contacted"><div class="n" id="s-contacted">–</div><div class="l">Contacted</div></div>
+      <div class="stat follow"><div class="n" id="s-follow">–</div><div class="l">Follow Up</div></div>
+      <div class="stat closed"><div class="n" id="s-closed">–</div><div class="l">Closed</div></div>
+    </div>
+
+    <div class="toolbar">
+      <input class="grow" id="search" type="search" placeholder="Search name, email, mobile, city, state, message…" />
+      <select id="filter-status">
+        <option value="">All statuses</option>
+        <option value="New">New</option>
+        <option value="Contacted">Contacted</option>
+        <option value="Follow Up">Follow Up</option>
+        <option value="Closed">Closed</option>
+      </select>
+      <select id="filter-archived">
+        <option value="false">Active</option>
+        <option value="true">Archived</option>
+        <option value="">All</option>
+      </select>
+      <button class="btn btn-sm btn-ghost" id="btn-refresh">↻ Refresh</button>
+      <div class="spacer"></div>
+      <button class="btn btn-sm btn-ghost" id="btn-csv">⬇ CSV</button>
+      <button class="btn btn-sm btn-ghost" id="btn-excel">⬇ Excel</button>
+    </div>
+
+    <div class="table-card">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th data-sort="id">ID</th>
+              <th data-sort="fullName">Name</th>
+              <th class="no-sort">Mobile</th>
+              <th class="no-sort">Email</th>
+              <th data-sort="city">City</th>
+              <th data-sort="state">State</th>
+              <th class="no-sort">Investment</th>
+              <th data-sort="status">Status</th>
+              <th data-sort="createdAt">Date &amp; Time</th>
+              <th class="no-sort">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+            <tr class="loading-row"><td colspan="10">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <span class="muted" id="page-info">—</span>
+        <div class="pages">
+          <button class="btn btn-sm btn-ghost" id="prev">‹ Prev</button>
+          <span class="muted" id="page-num">1</span>
+          <button class="btn btn-sm btn-ghost" id="next">Next ›</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============== DETAIL DRAWER ============== -->
+<div id="drawer" class="overlay hidden">
+  <div class="drawer">
+    <div class="drawer-head">
+      <h3 id="d-title">Enquiry</h3>
+      <button class="x-btn" id="d-close">✕</button>
+    </div>
+    <div class="detail" id="d-body"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var API = "/api/franchise-enquiry";
+  var AUTH = "/admin/api";
+  var state = { page:1, limit:20, search:"", status:"", archived:"false", sortBy:"createdAt", sortDir:"DESC", total:0, totalPages:1 };
+  var searchTimer = null;
+
+  // ---------- helpers ----------
+  function $(id){ return document.getElementById(id); }
+  function show(view){
+    ["view-login","view-change","view-dash"].forEach(function(v){ $(v).classList.add("hidden"); });
+    $(view).classList.remove("hidden");
+  }
+  function setMsg(el, text, kind){
+    el.textContent = text || "";
+    el.className = "msg" + (text ? (" " + kind) : "");
+  }
+  function esc(v){ return v == null ? "" : String(v); }
+  function fmtDate(s){
+    if(!s) return "—";
+    try { return new Date(s).toLocaleString("en-IN", { timeZone:"Asia/Kolkata" }); }
+    catch(e){ return String(s); }
+  }
+  function api(url, opts){
+    opts = opts || {};
+    opts.credentials = "same-origin";
+    opts.headers = Object.assign({ "Content-Type":"application/json" }, opts.headers||{});
+    return fetch(url, opts).then(function(r){
+      return r.json().catch(function(){ return {}; }).then(function(d){ return { status:r.status, ok:r.ok, d:d }; });
+    });
+  }
+  // Central handler: send to login/change screens on 401/403.
+  function guard(res){
+    if(res.status === 401){ show("view-login"); return false; }
+    if(res.status === 403 && res.d && res.d.code === "PASSWORD_CHANGE_REQUIRED"){ openChange(true); return false; }
+    return true;
+  }
+
+  // ---------- session bootstrap ----------
+  function boot(){
+    api(AUTH + "/me").then(function(res){
+      if(res.status === 401){ show("view-login"); return; }
+      if(res.ok && res.d && res.d.user){
+        $("who").textContent = res.d.user.username;
+        if(res.d.user.mustChangePassword){ openChange(true); }
+        else { show("view-dash"); load(); }
+      } else { show("view-login"); }
+    }).catch(function(){ show("view-login"); });
+  }
+
+  // ---------- login ----------
+  $("login-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    var btn = $("login-btn"); setMsg($("login-msg"), "", "");
+    btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Signing in…';
+    api(AUTH + "/login", { method:"POST", body: JSON.stringify({
+      username: $("login-username").value.trim(), password: $("login-password").value
+    })}).then(function(res){
+      btn.disabled = false; btn.textContent = "Sign In";
+      if(res.ok && res.d && res.d.success){
+        $("who").textContent = res.d.user.username;
+        $("login-password").value = "";
+        if(res.d.user.mustChangePassword){ openChange(true); }
+        else { show("view-dash"); load(); }
+      } else {
+        setMsg($("login-msg"), (res.d && res.d.message) || "Login failed.", "err");
+      }
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = "Sign In";
+      setMsg($("login-msg"), "Could not reach the server.", "err");
+    });
+  });
+
+  // ---------- change password ----------
+  var changeForced = false;
+  function openChange(forced){
+    changeForced = !!forced;
+    $("change-sub").textContent = forced
+      ? "This is your first login. Please set a new password to continue."
+      : "Enter your current password and choose a new one.";
+    $("change-cancel").style.display = forced ? "none" : "block";
+    setMsg($("change-msg"), "", "");
+    $("cur-password").value = ""; $("new-password").value = ""; $("new-password2").value = "";
+    show("view-change");
+  }
+  $("change-cancel").addEventListener("click", function(){ show("view-dash"); load(); });
+  $("btn-change-pw").addEventListener("click", function(){ openChange(false); });
+  $("change-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    var msg = $("change-msg"); setMsg(msg, "", "");
+    if($("new-password").value !== $("new-password2").value){ setMsg(msg, "New passwords do not match.", "err"); return; }
+    var btn = $("change-btn"); btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Updating…';
+    api(AUTH + "/change-password", { method:"POST", body: JSON.stringify({
+      currentPassword: $("cur-password").value, newPassword: $("new-password").value
+    })}).then(function(res){
+      btn.disabled = false; btn.textContent = "Update Password";
+      if(res.ok && res.d && res.d.success){
+        setMsg(msg, "Password updated. Loading dashboard…", "ok");
+        setTimeout(function(){ show("view-dash"); load(); }, 700);
+      } else if(res.status === 401){ show("view-login"); }
+      else { setMsg(msg, (res.d && res.d.message) || "Could not change password.", "err"); }
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = "Update Password";
+      setMsg(msg, "Could not reach the server.", "err");
+    });
+  });
+
+  // ---------- logout ----------
+  $("btn-logout").addEventListener("click", function(){
+    api(AUTH + "/logout", { method:"POST" }).then(function(){ show("view-login"); });
+  });
+
+  // ---------- list / render ----------
+  function queryString(extra){
+    var p = new URLSearchParams();
+    p.set("page", state.page); p.set("limit", state.limit);
+    if(state.search) p.set("search", state.search);
+    if(state.status) p.set("status", state.status);
+    if(state.archived !== "") p.set("archived", state.archived);
+    p.set("sortBy", state.sortBy); p.set("sortDir", state.sortDir);
+    if(extra){ Object.keys(extra).forEach(function(k){ p.set(k, extra[k]); }); }
+    return p.toString();
+  }
+
+  function load(){
+    var tb = $("tbody");
+    tb.innerHTML = '<tr class="loading-row"><td colspan="10">Loading…</td></tr>';
+    api(API + "?" + queryString()).then(function(res){
+      if(!guard(res)) return;
+      if(!res.ok || !res.d || !res.d.success){
+        tb.innerHTML = '<tr><td colspan="10" class="empty">Failed to load enquiries.</td></tr>'; return;
+      }
+      renderRows(res.d.data || []);
+      var pg = res.d.pagination || { page:1, totalPages:1, total:0 };
+      state.total = pg.total; state.totalPages = pg.totalPages || 1;
+      $("page-info").textContent = pg.total + " enquir" + (pg.total===1?"y":"ies") + " · page " + pg.page + " of " + state.totalPages;
+      $("page-num").textContent = pg.page;
+      $("prev").disabled = pg.page <= 1;
+      $("next").disabled = pg.page >= state.totalPages;
+      updateStats();
+    }).catch(function(){
+      tb.innerHTML = '<tr><td colspan="10" class="empty">Could not reach the server.</td></tr>';
+    });
+  }
+
+  function renderRows(rows){
+    var tb = $("tbody"); tb.innerHTML = "";
+    if(!rows.length){ tb.innerHTML = '<tr><td colspan="10" class="empty">No enquiries found.</td></tr>'; return; }
+    rows.forEach(function(r){
+      var tr = document.createElement("tr");
+      function cell(text, cls){ var td=document.createElement("td"); if(cls) td.className=cls; td.textContent=text; return td; }
+      tr.appendChild(cell(r.id));
+      tr.appendChild(cell(r.fullName || "—"));
+      tr.appendChild(cell(r.mobile || "—"));
+      tr.appendChild(cell(r.email || "—"));
+      tr.appendChild(cell(r.city || "—"));
+      tr.appendChild(cell(r.state || "—"));
+      tr.appendChild(cell(r.investmentBudget || "—"));
+
+      // status select
+      var tdS = document.createElement("td");
+      var sel = document.createElement("select");
+      sel.className = "status-select";
+      ["New","Contacted","Follow Up","Closed"].forEach(function(s){
+        var o=document.createElement("option"); o.value=s; o.textContent=s; if(s===r.status) o.selected=true; sel.appendChild(o);
+      });
+      sel.addEventListener("change", function(){ changeStatus(r.id, sel.value, sel); });
+      tdS.appendChild(sel); tr.appendChild(tdS);
+
+      tr.appendChild(cell(fmtDate(r.createdAt)));
+
+      // actions
+      var tdA = document.createElement("td");
+      var box = document.createElement("div"); box.className="row-actions";
+      var view = document.createElement("button"); view.className="btn btn-sm btn-ghost"; view.textContent="View";
+      view.addEventListener("click", function(){ openDetail(r.id); });
+      var del = document.createElement("button"); del.className="btn btn-sm btn-danger"; del.textContent="Delete";
+      del.addEventListener("click", function(){ removeEnquiry(r.id, r.fullName); });
+      box.appendChild(view); box.appendChild(del); tdA.appendChild(box); tr.appendChild(tdA);
+
+      tb.appendChild(tr);
+    });
+  }
+
+  function updateStats(){
+    // Pull small counts per status (archived filter respected) for the cards.
+    var base = { archived: state.archived === "" ? "" : state.archived };
+    Promise.all([
+      api(API + "?" + queryString2({ limit:1 })),
+      api(API + "?" + queryString2({ limit:1, status:"New" })),
+      api(API + "?" + queryString2({ limit:1, status:"Contacted" })),
+      api(API + "?" + queryString2({ limit:1, status:"Follow Up" })),
+      api(API + "?" + queryString2({ limit:1, status:"Closed" }))
+    ]).then(function(res){
+      function tot(x){ return (x.ok && x.d && x.d.pagination) ? x.d.pagination.total : "–"; }
+      $("s-total").textContent = tot(res[0]);
+      $("s-new").textContent = tot(res[1]);
+      $("s-contacted").textContent = tot(res[2]);
+      $("s-follow").textContent = tot(res[3]);
+      $("s-closed").textContent = tot(res[4]);
+    }).catch(function(){});
+  }
+  // stats query: respects archived + search, ignores paging
+  function queryString2(extra){
+    var p = new URLSearchParams();
+    p.set("page",1);
+    if(state.search) p.set("search", state.search);
+    if(state.archived !== "") p.set("archived", state.archived);
+    Object.keys(extra||{}).forEach(function(k){ p.set(k, extra[k]); });
+    return p.toString();
+  }
+
+  function changeStatus(id, status, sel){
+    sel.disabled = true;
+    api(API + "/" + id, { method:"PUT", body: JSON.stringify({ status: status }) }).then(function(res){
+      sel.disabled = false;
+      if(!guard(res)) return;
+      if(res.ok){ updateStats(); }
+      else { alert((res.d && res.d.message) || "Could not update status."); load(); }
+    }).catch(function(){ sel.disabled=false; alert("Could not reach the server."); });
+  }
+
+  function removeEnquiry(id, name){
+    if(!confirm('Delete enquiry #' + id + (name ? ' from ' + name : '') + '? This cannot be undone.')) return;
+    api(API + "/" + id, { method:"DELETE" }).then(function(res){
+      if(!guard(res)) return;
+      if(res.ok){ load(); } else { alert((res.d && res.d.message) || "Could not delete."); }
+    }).catch(function(){ alert("Could not reach the server."); });
+  }
+
+  // ---------- detail drawer ----------
+  function openDetail(id){
+    var body = $("d-body");
+    body.innerHTML = '<div class="empty">Loading…</div>';
+    $("drawer").classList.remove("hidden");
+    api(API + "/" + id).then(function(res){
+      if(!guard(res)){ $("drawer").classList.add("hidden"); return; }
+      if(!res.ok || !res.d || !res.d.data){ body.innerHTML = '<div class="empty">Not found.</div>'; return; }
+      var r = res.d.data;
+      $("d-title").textContent = "Enquiry #" + r.id + " · " + (r.fullName || "");
+      body.innerHTML = "";
+      function field(k, v, parent){
+        var f=document.createElement("div"); f.className="field";
+        var kd=document.createElement("div"); kd.className="k"; kd.textContent=k;
+        var vd=document.createElement("div"); vd.className="v"; vd.textContent=(v==null||v==="")?"—":String(v);
+        f.appendChild(kd); f.appendChild(vd); (parent||body).appendChild(f);
+      }
+      field("Full Name", r.fullName);
+      field("Mobile Number", r.mobile);
+      field("Email", r.email);
+      field("City", r.city);
+      field("State", r.state);
+      field("Investment Budget", r.investmentBudget);
+      field("Message", r.message);
+      field("Source Website", r.sourceWebsite);
+      field("Status", r.status);
+      field("Assigned To", r.assignedTo);
+      field("Follow-up Date", r.followUpDate);
+      field("Notes", r.notes);
+      field("Archived", r.archived ? "Yes" : "No");
+      field("Date & Time", fmtDate(r.createdAt));
+      field("Last Updated", fmtDate(r.updatedAt));
+
+      var tech=document.createElement("div"); tech.className="tech";
+      var note=document.createElement("div"); note.className="tech-note";
+      note.textContent="Technical details — visible only here in the Admin panel, never included in emails.";
+      tech.appendChild(note);
+      field("IP Address", r.ipAddress, tech);
+      field("User Agent", r.userAgent, tech);
+      body.appendChild(tech);
+    }).catch(function(){ body.innerHTML = '<div class="empty">Could not reach the server.</div>'; });
+  }
+  $("d-close").addEventListener("click", function(){ $("drawer").classList.add("hidden"); });
+  $("drawer").addEventListener("click", function(e){ if(e.target === $("drawer")) $("drawer").classList.add("hidden"); });
+
+  // ---------- exports (auth cookie sent automatically) ----------
+  function download(kind){
+    var url = API + "/export/" + kind + "?" + queryString2({});
+    api(url).then(function(res){ if(!guard(res)) return; realDownload(url, kind); });
+  }
+  function realDownload(url, kind){
+    fetch(url, { credentials:"same-origin" }).then(function(r){
+      if(r.status === 401){ show("view-login"); return null; }
+      if(!r.ok) throw new Error("export failed");
+      return r.blob();
+    }).then(function(blob){
+      if(!blob) return;
+      var a=document.createElement("a"); var href=URL.createObjectURL(blob);
+      a.href=href; a.download = "franchise-enquiries." + (kind==="excel"?"xlsx":"csv");
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(href);
+    }).catch(function(){ alert("Export failed. Please try again."); });
+  }
+  $("btn-csv").addEventListener("click", function(){ download("csv"); });
+  $("btn-excel").addEventListener("click", function(){ download("excel"); });
+
+  // ---------- toolbar events ----------
+  $("search").addEventListener("input", function(){
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(function(){ state.search = $("search").value.trim(); state.page=1; load(); }, 350);
+  });
+  $("filter-status").addEventListener("change", function(){ state.status=this.value; state.page=1; load(); });
+  $("filter-archived").addEventListener("change", function(){ state.archived=this.value; state.page=1; load(); });
+  $("btn-refresh").addEventListener("click", function(){ load(); });
+  $("prev").addEventListener("click", function(){ if(state.page>1){ state.page--; load(); } });
+  $("next").addEventListener("click", function(){ if(state.page<state.totalPages){ state.page++; load(); } });
+  Array.prototype.forEach.call(document.querySelectorAll("th[data-sort]"), function(th){
+    th.addEventListener("click", function(){
+      var col = th.getAttribute("data-sort");
+      if(state.sortBy === col){ state.sortDir = state.sortDir==="ASC" ? "DESC" : "ASC"; }
+      else { state.sortBy = col; state.sortDir = "ASC"; }
+      load();
+    });
+  });
+
+  boot();
+})();
+</script>
+</body>
+</html>
