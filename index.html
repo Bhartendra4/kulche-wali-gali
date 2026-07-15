@@ -1168,7 +1168,7 @@ class Component extends DCLogic {
       franchiseBtnStyle: (s.franchiseSending || s.franchiseSent) ? 'opacity:.7;pointer-events:none;' : '',
       submitFranchise: () => {
         // ===== Web3Forms Access Key — paste your key between the quotes below =====
-        const WEB3FORMS_ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+        const WEB3FORMS_ACCESS_KEY = '4d96d355-e310-4f10-97ac-b498560e5b50';
         // =========================================================================
         if (this.state.franchiseSending || this.state.franchiseSent) return; // prevent duplicate submissions
         const g = id => (document.getElementById(id)?.value || '').trim();
@@ -1179,7 +1179,6 @@ class Component extends DCLogic {
         if(!/^\S+@\S+\.\S+$/.test(email)){ fail('Please enter a valid email address.'); return; }
         if(!/^[0-9+\-\s]{7,15}$/.test(phone)){ fail('Please enter a valid mobile number.'); return; }
         if(errEl) errEl.style.display='none';
-        if(!WEB3FORMS_ACCESS_KEY || /^YOUR_/.test(WEB3FORMS_ACCESS_KEY)){ fail('Enquiry form is not configured yet. Please add the Web3Forms access key.'); return; }
         this.setState({ franchiseSending: true });
         const stamp = new Date().toLocaleString('en-IN', { timeZone:'Asia/Kolkata' });
         const waText = encodeURIComponent(['Franchise Enquiry — Kulche Wali Gali','','Name: '+name,'Mobile: '+phone,'Email: '+email,'City: '+city,'State: '+state,'Investment: '+inv,'Message: '+msg].join('\n'));
