@@ -1170,7 +1170,8 @@ class Component extends DCLogic {
       closeFranchiseSuccess: () => this.setState({ franchiseSent: false }),
       submitFranchise: () => {
         // ===== Backend API base URL — set to your deployed backend (see backend/README.md) =====
-        const FRANCHISE_API_URL = 'http://localhost:5000';
+        // Same-origin in production (served from the live domain); localhost during local dev.
+        const FRANCHISE_API_URL = (location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:5000' : '';
         // =====================================================================================
         if (this.state.franchiseSending) return; // prevent duplicate submissions
         const g = id => (document.getElementById(id)?.value || '').trim();

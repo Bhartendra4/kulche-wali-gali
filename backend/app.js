@@ -28,6 +28,11 @@ app.use('/api', apiRoutes);
 app.use('/admin/api', adminRoutes);
 app.use('/admin', express.static(path.join(__dirname, 'admin')));
 
+// Serve the static marketing site (frontend) from the same host so the entire
+// app (site + /admin + /api) runs on one origin — enables https://domain/admin.
+app.use('/assets', express.static(path.join(__dirname, '..', 'assets')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, '..', 'index.html')));
+
 app.use(notFound);
 app.use(errorHandler);
 

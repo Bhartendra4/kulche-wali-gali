@@ -27,7 +27,7 @@ function buildSessionMiddleware(sequelize) {
     cookie: {
       httpOnly: true,
       sameSite: 'lax',
-      secure: env.nodeEnv === 'production', // requires HTTPS in production
+      secure: 'auto', // secure over HTTPS (production) but still works on http://localhost
       maxAge: 8 * 60 * 60 * 1000
     }
   });
