@@ -1169,10 +1169,8 @@ class Component extends DCLogic {
       franchiseBtnStyle: s.franchiseSending ? 'opacity:.7;pointer-events:none;' : '',
       closeFranchiseSuccess: () => this.setState({ franchiseSent: false }),
       submitFranchise: () => {
-        // ===== Backend API base URL — set to your deployed backend (see backend/README.md) =====
-        // Same-origin in production (served from the live domain); localhost during local dev.
-        const FRANCHISE_API_URL = (location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:5000' : '';
-        // =====================================================================================
+        // Web3Forms — serverless email delivery to contact@pinkspoonfood.com (no backend needed).
+        const WEB3FORMS_ACCESS_KEY = '4d96d355-e310-4f10-97ac-b498560e5b50';
         if (this.state.franchiseSending) return; // prevent duplicate submissions
         const g = id => (document.getElementById(id)?.value || '').trim();
         const name=g('fr-name'), phone=g('fr-phone'), email=g('fr-email'), city=g('fr-city'), state=g('fr-state'), inv=g('fr-investment'), msg=g('fr-message'), hp=g('fr-website');
@@ -1184,9 +1182,23 @@ class Component extends DCLogic {
         if(!/^[0-9+\-\s()]{7,20}$/.test(phone)){ fail('Please enter a valid mobile number.'); return; }
         if(errEl) errEl.style.display='none';
         this.setState({ franchiseSending: true });
-        fetch(FRANCHISE_API_URL + '/api/franchise-enquiry', {
-          method:'POST', headers:{ 'Content-Type':'application/json' },
-          body: JSON.stringify({ fullName:name, mobile:phone, email:email, city:city, state:state, investmentBudget:inv, message:msg, sourceWebsite: location.href, website: hp })
+        fetch('https://api.web3forms.com/submit', {
+          method:'POST', headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_ACCESS_KEY,
+            subject: 'New Franchise Enquiry - Kulche Wali Gali',
+            from_name: 'Kulche Wali Gali Website',
+            replyto: email,
+            botcheck: '',
+            'Full Name': name,
+            'Mobile Number': phone,
+            'Email': email,
+            'City': city,
+            'State': state,
+            'Investment Budget': inv || '-',
+            'Message': msg || '-',
+            'Source Website': location.href
+          })
         })
           .then(r => r.json().then(d => ({ ok:r.ok, d })))
           .then(({ ok, d }) => {
