@@ -1018,69 +1018,133 @@
   <div style="max-width:1240px;margin:44px auto 0;padding-top:24px;border-top:1px solid rgba(250,198,19,.15);text-align:center;font-size:12px;color:rgba(246,239,224,.4);">© 2026 Kulche Wali Gali · Ahmedabad · Handmade with ghee &amp; love</div>
 </footer>
 
-<!-- ===== FIXED INTERACTIVE PUNJABI TRUCK ===== -->
+<!-- ===== AUTHENTIC PUNJABI HIGHWAY TRUCK (fixed, interactive) ===== -->
 <style id="kwg-truck-css">
-.kwg-truck-lane{position:fixed;left:0;right:0;bottom:0;height:94px;z-index:40;overflow:hidden;pointer-events:none;}
-.kwg-truck{position:absolute;bottom:6px;left:0;pointer-events:auto;cursor:pointer;will-change:transform;animation:kwg-truck-drive 16s linear infinite;}
-.kwg-truck:focus-visible{outline:3px solid #FAC613;outline-offset:3px;border-radius:10px;}
-.kwg-truck-bob{will-change:transform;animation:kwg-truck-bob .8s ease-in-out infinite alternate;}
-.kwg-truck .kwg-wheel{transform-box:fill-box;transform-origin:center;animation:kwg-truck-spin 1.05s linear infinite;}
-@keyframes kwg-truck-drive{0%{transform:translateX(-210px);}100%{transform:translateX(calc(100vw + 30px));}}
+.kwg-truck-lane{position:fixed;left:0;right:0;bottom:0;height:182px;z-index:40;overflow:hidden;pointer-events:none;}
+.kwg-truck{position:absolute;bottom:2px;left:0;will-change:transform;animation:kwg-truck-drive 24s linear infinite;}
+.kwg-truck-bob{will-change:transform;animation:kwg-truck-bob 1.1s ease-in-out infinite alternate;}
+.kwg-truck svg{display:block;height:172px;width:auto;}
+.kwg-truck .kwg-wheel{transform-box:fill-box;transform-origin:center;animation:kwg-truck-spin 1.6s linear infinite;}
+@keyframes kwg-truck-drive{0%{transform:translateX(-340px);}100%{transform:translateX(calc(100vw + 40px));}}
 @keyframes kwg-truck-bob{0%{transform:translateY(0);}100%{transform:translateY(-3px);}}
 @keyframes kwg-truck-spin{0%{transform:rotate(0);}100%{transform:rotate(360deg);}}
-.kwg-food{position:fixed;z-index:95;font-size:30px;line-height:1;pointer-events:none;will-change:transform,opacity;animation:kwg-food-pop 1.5s cubic-bezier(.2,.8,.3,1) forwards;}
-@keyframes kwg-food-pop{0%{transform:translate(-50%,-50%) scale(.3);opacity:0;}18%{opacity:1;transform:translate(-50%,-50%) scale(1.15);}100%{transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) scale(.9) rotate(var(--rot));opacity:0;}}
-@media (max-width:600px){.kwg-truck-lane{height:76px;}.kwg-truck svg{width:150px;height:auto;}}
+.kwg-food{position:fixed;left:0;top:0;z-index:95;font-size:30px;line-height:1;pointer-events:none;will-change:transform,opacity;filter:drop-shadow(0 4px 6px rgba(0,0,0,.3));}
+@media (max-width:900px){.kwg-truck-lane{height:150px;}.kwg-truck svg{height:140px;}}
+@media (max-width:560px){.kwg-truck-lane{height:112px;}.kwg-truck svg{height:104px;}.kwg-food{font-size:26px;}}
 @media (prefers-reduced-motion: reduce){.kwg-truck{animation:none;left:16px;transform:none;}.kwg-truck-bob,.kwg-truck .kwg-wheel{animation:none;}}
 </style>
 <div class="kwg-truck-lane">
-  <div class="kwg-truck" role="button" tabindex="0" aria-label="Tap the truck for a tasty surprise">
+  <div class="kwg-truck">
     <div class="kwg-truck-bob">
-      <svg viewBox="0 0 240 120" width="188" height="94" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Kulche Wali Gali delivery truck">
+      <svg viewBox="0 0 470 262" role="img" aria-label="Kulche Wali Gali Punjabi highway truck" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
-          <linearGradient id="kwgBodyF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7B41B0"/><stop offset="1" stop-color="#4B2277"/></linearGradient>
-          <linearGradient id="kwgCabF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6A34A0"/><stop offset="1" stop-color="#3E1C66"/></linearGradient>
+          <linearGradient id="ptBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7B41B0"/><stop offset="1" stop-color="#3E1C66"/></linearGradient>
+          <linearGradient id="ptCab" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6A34A0"/><stop offset="1" stop-color="#341856"/></linearGradient>
+          <linearGradient id="ptGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE07A"/><stop offset="1" stop-color="#E0A800"/></linearGradient>
+          <linearGradient id="ptChrome" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF1F6"/><stop offset=".5" stop-color="#AEB4C0"/><stop offset="1" stop-color="#7A808C"/></linearGradient>
         </defs>
-        <ellipse cx="118" cy="108" rx="98" ry="7" fill="#000" opacity=".2"/>
-        <rect x="22" y="84" width="196" height="9" rx="4.5" fill="#160B29"/>
-        <rect x="20" y="26" width="126" height="60" rx="9" fill="url(#kwgBodyF)" stroke="#FAC613" stroke-width="2.6"/>
-        <rect x="27" y="33" width="112" height="46" rx="5" fill="none" stroke="#FFD75E" stroke-width="1.3" opacity=".5"/>
-        <rect x="20" y="26" width="126" height="12" rx="6" fill="#FAC613"/>
-        <g fill="#4B2277"><circle cx="34" cy="32" r="1.9"/><circle cx="50" cy="32" r="1.9"/><circle cx="66" cy="32" r="1.9"/><circle cx="82" cy="32" r="1.9"/><circle cx="98" cy="32" r="1.9"/><circle cx="114" cy="32" r="1.9"/><circle cx="130" cy="32" r="1.9"/></g>
-        <rect x="63" y="45" width="40" height="25" rx="6" fill="#FAC613"/>
-        <text x="83" y="62" text-anchor="middle" font-family="Arial,sans-serif" font-size="12.5" font-weight="800" fill="#3E1C66">KWG</text>
-        <rect x="20" y="72" width="126" height="4" fill="#FAC613" opacity=".9"/>
-        <path d="M146 40 h34 a8 8 0 0 1 7 4 l10 20 a6 6 0 0 1 1 3 v13 a4 4 0 0 1 -4 4 h-55 z" fill="url(#kwgCabF)" stroke="#FAC613" stroke-width="2.4"/>
-        <path d="M150 44 h26 a5 5 0 0 1 4.5 2.6 l6.8 13.4 h-37.3 z" fill="#FFE07A" opacity=".92"/>
-        <circle cx="200" cy="73" r="4.4" fill="#FFD75E" stroke="#FAC613" stroke-width="1"/>
-        <rect x="188" y="80" width="20" height="7" rx="3" fill="#FAC613"/>
-        <g stroke="#FAC613" stroke-width="1.5"><line x1="30" y1="86" x2="30" y2="94"/><line x1="40" y1="86" x2="40" y2="96"/><line x1="50" y1="86" x2="50" y2="93"/></g>
-        <g fill="#FFD75E"><circle cx="30" cy="95" r="1.5"/><circle cx="40" cy="97" r="1.5"/><circle cx="50" cy="94" r="1.5"/></g>
-        <g class="kwg-wheel"><circle cx="62" cy="88" r="17" fill="#160B29"/><circle cx="62" cy="88" r="9" fill="#FAC613"/><circle cx="62" cy="88" r="3.1" fill="#3E1C66"/><g stroke="#3E1C66" stroke-width="2"><line x1="62" y1="80" x2="62" y2="96"/><line x1="54" y1="88" x2="70" y2="88"/><line x1="56.5" y1="82.5" x2="67.5" y2="93.5"/><line x1="67.5" y1="82.5" x2="56.5" y2="93.5"/></g></g>
-        <g class="kwg-wheel"><circle cx="168" cy="88" r="17" fill="#160B29"/><circle cx="168" cy="88" r="9" fill="#FAC613"/><circle cx="168" cy="88" r="3.1" fill="#3E1C66"/><g stroke="#3E1C66" stroke-width="2"><line x1="168" y1="80" x2="168" y2="96"/><line x1="160" y1="88" x2="176" y2="88"/><line x1="162.5" y1="82.5" x2="173.5" y2="93.5"/><line x1="173.5" y1="82.5" x2="162.5" y2="93.5"/></g></g>
+        <ellipse cx="235" cy="250" rx="205" ry="9" fill="#000" opacity=".18"/>
+        <!-- hanging tassels under body -->
+        <g stroke="#FAC613" stroke-width="1.6">
+          <line x1="40" y1="176" x2="40" y2="196"/><line x1="60" y1="176" x2="60" y2="200"/><line x1="80" y1="176" x2="80" y2="194"/>
+          <line x1="150" y1="176" x2="150" y2="198"/><line x1="170" y1="176" x2="170" y2="192"/><line x1="235" y1="176" x2="235" y2="199"/><line x1="255" y1="176" x2="255" y2="193"/>
+        </g>
+        <g fill="#FFD75E"><circle cx="40" cy="197" r="2.2"/><circle cx="60" cy="201" r="2.2"/><circle cx="80" cy="195" r="2.2"/><circle cx="150" cy="199" r="2.2"/><circle cx="170" cy="193" r="2.2"/><circle cx="235" cy="200" r="2.2"/><circle cx="255" cy="194" r="2.2"/></g>
+        <!-- chassis -->
+        <rect x="30" y="178" width="400" height="12" rx="4" fill="#160B29"/>
+        <!-- rear painted mudguard -->
+        <path d="M18 176 v-30 a10 10 0 0 1 10 -10 h6 v40 z" fill="url(#ptBody)" stroke="#FAC613" stroke-width="2"/>
+        <!-- ===== CARGO BODY ===== -->
+        <rect x="20" y="62" width="250" height="116" rx="7" fill="url(#ptBody)" stroke="#FAC613" stroke-width="3"/>
+        <rect x="28" y="70" width="234" height="100" rx="4" fill="none" stroke="#FFD75E" stroke-width="1.4" opacity=".6"/>
+        <!-- top & bottom gold scallop bands -->
+        <rect x="20" y="62" width="250" height="13" rx="6" fill="url(#ptGold)"/>
+        <rect x="20" y="164" width="250" height="14" rx="4" fill="url(#ptGold)"/>
+        <g fill="#3E1C66"><circle cx="34" cy="171" r="2.4"/><circle cx="58" cy="171" r="2.4"/><circle cx="82" cy="171" r="2.4"/><circle cx="106" cy="171" r="2.4"/><circle cx="130" cy="171" r="2.4"/><circle cx="154" cy="171" r="2.4"/><circle cx="178" cy="171" r="2.4"/><circle cx="202" cy="171" r="2.4"/><circle cx="226" cy="171" r="2.4"/><circle cx="250" cy="171" r="2.4"/></g>
+        <!-- floral motifs -->
+        <g opacity=".95">
+          <g transform="translate(52,150)" fill="#FAC613"><circle r="3.4"/><g fill="#FFD75E"><ellipse cx="0" cy="-7" rx="3" ry="5"/><ellipse cx="0" cy="7" rx="3" ry="5"/><ellipse cx="-7" cy="0" rx="5" ry="3"/><ellipse cx="7" cy="0" rx="5" ry="3"/></g></g>
+          <g transform="translate(238,150)" fill="#FAC613"><circle r="3.4"/><g fill="#FFD75E"><ellipse cx="0" cy="-7" rx="3" ry="5"/><ellipse cx="0" cy="7" rx="3" ry="5"/><ellipse cx="-7" cy="0" rx="5" ry="3"/><ellipse cx="7" cy="0" rx="5" ry="3"/></g></g>
+          <path d="M40 92 q10 -12 20 0 q10 -12 20 0" fill="none" stroke="#FFD75E" stroke-width="1.6"/>
+          <path d="M190 92 q10 -12 20 0 q10 -12 20 0" fill="none" stroke="#FFD75E" stroke-width="1.6"/>
+        </g>
+        <!-- LOGO on side panel -->
+        <rect x="92" y="88" width="108" height="66" rx="9" fill="#3E1C66" stroke="#FAC613" stroke-width="2.4"/>
+        <image href="assets/img/logo.png" xlink:href="assets/img/logo.png" x="97" y="93" width="98" height="56" preserveAspectRatio="xMidYMid meet"/>
+        <!-- ===== ROOF CARRIER over cargo ===== -->
+        <rect x="24" y="44" width="242" height="18" rx="4" fill="none" stroke="#FAC613" stroke-width="2.4"/>
+        <g stroke="#FAC613" stroke-width="2"><line x1="70" y1="44" x2="70" y2="62"/><line x1="120" y1="44" x2="120" y2="62"/><line x1="170" y1="44" x2="170" y2="62"/><line x1="220" y1="44" x2="220" y2="62"/></g>
+        <path d="M40 44 q90 -22 190 0 z" fill="url(#ptBody)" stroke="#FAC613" stroke-width="1.6" opacity=".9"/>
+        <!-- ===== CAB ===== -->
+        <path d="M270 178 v-70 a8 8 0 0 1 8 -8 h118 a8 8 0 0 1 8 8 v70 z" fill="url(#ptCab)" stroke="#FAC613" stroke-width="3"/>
+        <!-- windshield -->
+        <path d="M330 106 h58 a5 5 0 0 1 5 5 v26 h-63 z" fill="url(#ptChrome)" opacity=".9"/>
+        <path d="M333 109 h52 a3 3 0 0 1 3 3 v22 h-55 z" fill="#BFE3FF"/>
+        <!-- cab door -->
+        <rect x="284" y="118" width="40" height="56" rx="4" fill="none" stroke="#FFD75E" stroke-width="1.6"/>
+        <rect x="304" y="140" width="8" height="4" rx="2" fill="#FAC613"/>
+        <g transform="translate(290,150)" fill="#FAC613"><circle r="3"/><g fill="#FFD75E"><ellipse cx="0" cy="-6" rx="2.6" ry="4"/><ellipse cx="0" cy="6" rx="2.6" ry="4"/><ellipse cx="-6" cy="0" rx="4" ry="2.6"/><ellipse cx="6" cy="0" rx="4" ry="2.6"/></g></g>
+        <!-- ===== CAB CROWN / TAJ ===== -->
+        <path d="M264 100 q6 -46 74 -58 q68 12 74 58 z" fill="url(#ptGold)" stroke="#E0A800" stroke-width="2"/>
+        <path d="M280 98 q4 -34 58 -44 q54 10 58 44 z" fill="url(#ptBody)" stroke="#FAC613" stroke-width="1.8"/>
+        <path d="M338 56 l7 12 h-14 z" fill="#FAC613"/>
+        <circle cx="338" cy="50" r="4" fill="#FAC613"/>
+        <!-- decorative crown lights -->
+        <g fill="#FFF3C4" stroke="#E0A800" stroke-width="1"><circle cx="292" cy="90" r="3"/><circle cx="315" cy="80" r="3"/><circle cx="338" cy="76" r="3"/><circle cx="361" cy="80" r="3"/><circle cx="384" cy="90" r="3"/></g>
+        <!-- floral on crown -->
+        <g transform="translate(338,88)" fill="#FAC613"><circle r="3"/><g fill="#FFD75E"><ellipse cx="0" cy="-6" rx="2.6" ry="4"/><ellipse cx="0" cy="6" rx="2.6" ry="4"/><ellipse cx="-6" cy="0" rx="4" ry="2.6"/><ellipse cx="6" cy="0" rx="4" ry="2.6"/></g></g>
+        <!-- chrome mirror on stalk -->
+        <line x1="396" y1="116" x2="416" y2="108" stroke="#8A909C" stroke-width="3"/>
+        <rect x="414" y="98" width="10" height="20" rx="3" fill="url(#ptChrome)" stroke="#7A808C" stroke-width="1"/>
+        <!-- ===== FRONT grill, lights, bumper ===== -->
+        <rect x="404" y="122" width="20" height="46" rx="3" fill="url(#ptChrome)" stroke="#7A808C" stroke-width="1"/>
+        <g stroke="#E0A800" stroke-width="2"><line x1="408" y1="126" x2="408" y2="164"/><line x1="414" y1="126" x2="414" y2="164"/><line x1="420" y1="126" x2="420" y2="164"/></g>
+        <circle cx="414" cy="150" r="6.5" fill="#FFF3C4" stroke="#E0A800" stroke-width="1.5"/>
+        <rect x="398" y="168" width="42" height="13" rx="3" fill="url(#ptChrome)" stroke="#7A808C" stroke-width="1"/>
+        <!-- front hanging chains/tassels -->
+        <g stroke="#FAC613" stroke-width="1.6"><line x1="404" y1="181" x2="404" y2="200"/><line x1="414" y1="181" x2="414" y2="204"/><line x1="424" y1="181" x2="424" y2="198"/></g>
+        <g fill="#FFD75E"><circle cx="404" cy="201" r="2.2"/><circle cx="414" cy="205" r="2.2"/><circle cx="424" cy="199" r="2.2"/></g>
+        <!-- front painted mudguard -->
+        <path d="M330 190 a34 34 0 0 1 68 0 h-6 a28 28 0 0 0 -56 0 z" fill="url(#ptBody)" stroke="#FAC613" stroke-width="2"/>
+        <!-- ===== WHEELS ===== -->
+        <g class="kwg-wheel"><circle cx="86" cy="196" r="30" fill="#160B29"/><circle cx="86" cy="196" r="15" fill="url(#ptGold)"/><circle cx="86" cy="196" r="5" fill="#3E1C66"/><g stroke="#3E1C66" stroke-width="2.4"><line x1="86" y1="182" x2="86" y2="210"/><line x1="72" y1="196" x2="100" y2="196"/><line x1="76" y1="186" x2="96" y2="206"/><line x1="96" y1="186" x2="76" y2="206"/></g></g>
+        <g class="kwg-wheel"><circle cx="150" cy="196" r="30" fill="#160B29"/><circle cx="150" cy="196" r="15" fill="url(#ptGold)"/><circle cx="150" cy="196" r="5" fill="#3E1C66"/><g stroke="#3E1C66" stroke-width="2.4"><line x1="150" y1="182" x2="150" y2="210"/><line x1="136" y1="196" x2="164" y2="196"/><line x1="140" y1="186" x2="160" y2="206"/><line x1="160" y1="186" x2="140" y2="206"/></g></g>
+        <g class="kwg-wheel"><circle cx="364" cy="196" r="30" fill="#160B29"/><circle cx="364" cy="196" r="15" fill="url(#ptGold)"/><circle cx="364" cy="196" r="5" fill="#3E1C66"/><g stroke="#3E1C66" stroke-width="2.4"><line x1="364" y1="182" x2="364" y2="210"/><line x1="350" y1="196" x2="378" y2="196"/><line x1="354" y1="186" x2="374" y2="206"/><line x1="374" y1="186" x2="354" y2="206"/></g></g>
       </svg>
     </div>
   </div>
 </div>
 <script>
 (function(){
-  var FOODS=["\uD83E\uDED3","\uD83E\uDD5B","\uD83E\uDDC8","\uD83C\uDF5B","\uD83E\uDDC5","\uD83C\uDF36\uFE0F"];
-  function pop(x,y){
-    for(var i=0;i<FOODS.length;i++){(function(i){
-      var el=document.createElement("span");
-      el.className="kwg-food"; el.textContent=FOODS[i];
-      el.style.left=x+"px"; el.style.top=y+"px";
-      var ang=(-90+(i-(FOODS.length-1)/2)*20)*Math.PI/180, dist=95+Math.random()*45;
-      el.style.setProperty("--tx",(Math.cos(ang)*dist).toFixed(0)+"px");
-      el.style.setProperty("--ty",(Math.sin(ang)*dist-30).toFixed(0)+"px");
-      el.style.setProperty("--rot",((Math.random()*80-40)|0)+"deg");
-      document.body.appendChild(el);
-      setTimeout(function(){el.remove();},1600);
-    })(i);}
+  var FOODS=["🫓","🧀","🍛","🥛","🧈","🌿","🥒","🧅"];
+  var parts=[], running=false;
+  function frame(){
+    running=true;
+    for(var i=parts.length-1;i>=0;i--){
+      var p=parts[i];
+      p.vy+=0.42; p.x+=p.vx; p.y+=p.vy; p.rot+=p.rs; p.life+=16;
+      var op=1; if(p.life>p.max-700){ op=Math.max(0,(p.max-p.life)/700); }
+      p.el.style.transform="translate("+p.x.toFixed(1)+"px,"+p.y.toFixed(1)+"px) rotate("+p.rot.toFixed(1)+"deg)";
+      p.el.style.opacity=op;
+      if(p.life>=p.max){ p.el.remove(); parts.splice(i,1); }
+    }
+    if(parts.length) requestAnimationFrame(frame); else running=false;
   }
-  function fire(t){ if(!t)return; var r=t.getBoundingClientRect(); pop(r.left+r.width/2, r.top+Math.max(18,r.height/2)); }
-  document.addEventListener("click",function(e){ var t=e.target.closest(".kwg-truck"); if(t){ e.preventDefault(); fire(t); } });
-  document.addEventListener("keydown",function(e){ if((e.key==="Enter"||e.key===" ")){ var a=document.activeElement; if(a&&a.classList&&a.classList.contains("kwg-truck")){ e.preventDefault(); fire(a); } } });
+  function burst(){
+    var t=document.querySelector(".kwg-truck"); if(!t) return;
+    var r=t.getBoundingClientRect();
+    var ox=r.left+r.width*0.45, oy=r.top+r.height*0.30;
+    var n=4+Math.floor(Math.random()*3); // 4-6
+    for(var i=0;i<n;i++){
+      var el=document.createElement("span");
+      el.className="kwg-food"; el.textContent=FOODS[(Math.random()*FOODS.length)|0];
+      document.body.appendChild(el);
+      parts.push({el:el,x:ox,y:oy,vx:(Math.random()*2-1)*4.2,vy:-(9+Math.random()*4.5),rot:(Math.random()*360)|0,rs:(Math.random()*2-1)*9,life:0,max:2200+Math.random()*900});
+    }
+    if(!running) requestAnimationFrame(frame);
+  }
+  document.addEventListener("click", burst, {passive:true});
+  document.addEventListener("touchstart", function(e){ burst(); }, {passive:true});
 })();
 </script>
 <!-- ===== FLOATING CTAs ===== -->
